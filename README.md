@@ -115,6 +115,30 @@ claude mcp add gsc-coverage \
 }
 ```
 
+### Codex
+
+The Codex CLI, IDE extension and desktop app share `~/.codex/config.toml`. Add:
+
+```toml
+[mcp_servers.gsc-coverage]
+command = "node"
+args = ["/path/to/gsc-coverage-mcp/src/index.js"]
+tool_timeout_sec = 180
+
+[mcp_servers.gsc-coverage.env]
+GOOGLE_APPLICATION_CREDENTIALS = "/path/to/service-account.json"
+```
+
+Or from the CLI:
+
+```bash
+codex mcp add gsc-coverage \
+  --env GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json \
+  -- node /path/to/gsc-coverage-mcp/src/index.js
+```
+
+Codex stops a tool call after 60 seconds by default, and a pull of 100,000 rows can take longer than that, so set `tool_timeout_sec` in the config. If the desktop app can't start the server, replace `node` with the full path that `which node` prints.
+
 ## What it can't fix
 
 - **Anonymized queries are gone.** Google withholds them before any connector, warehouse or export sees the data. The coverage block measures that gap so you can report it.
