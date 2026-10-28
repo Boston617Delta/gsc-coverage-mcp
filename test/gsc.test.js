@@ -6,15 +6,15 @@ import { tmpdir } from 'node:os';
 import { API_PAGE_SIZE, fetchAllRows, searchAnalytics } from '../src/gsc.js';
 
 // Fake property with `total` query rows; every row has 1 click, 10 impressions.
-// Totals include extra anonymised clicks the rows never show.
-function fakeClient(total, { anonymisedClicks = 0 } = {}) {
+// Totals include extra anonymized clicks the rows never show.
+function fakeClient(total, { anonymizedClicks = 0 } = {}) {
   const calls = [];
   return {
     calls,
     async query(_site, body) {
       calls.push(body);
       if (!body.dimensions) {
-        return [{ clicks: total + anonymisedClicks, impressions: total * 10 + anonymisedClicks * 10 }];
+        return [{ clicks: total + anonymizedClicks, impressions: total * 10 + anonymizedClicks * 10 }];
       }
       const start = body.startRow ?? 0;
       const n = Math.max(0, Math.min(body.rowLimit, total - start));
@@ -57,13 +57,13 @@ test('flags truncation when maxRows stops the pull early', async () => {
 });
 
 test('reports click coverage against property totals', async () => {
-  const client = fakeClient(300, { anonymisedClicks: 200 });
+  const client = fakeClient(300, { anonymizedClicks: 200 });
   const res = await searchAnalytics(client, base);
   assert.equal(res.rows.length, 300);
   assert.equal(res.coverage.propertyTotals.clicks, 500);
   assert.equal(res.coverage.clickCoveragePct, 60);
   assert.equal(res.coverage.truncated, false);
-  assert.ok(res.coverage.notes.some((n) => n.includes('anonymised')));
+  assert.ok(res.coverage.notes.some((n) => n.includes('anonymized')));
   assert.equal(res.rows[0].ctr, 10);
 });
 

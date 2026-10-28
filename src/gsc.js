@@ -89,7 +89,7 @@ export function buildCoverage({ rows, pages, apiExhausted, hitMaxRows }, totals,
   }
   if (args.dimensions.some((d) => d === 'query')) {
     notes.push(
-      'Query rows never add up to property totals: Google drops anonymised and rare queries. A coverage gap here is privacy filtering, not missing pages.',
+      'Query rows never add up to property totals: Google drops anonymized and rare queries. The gap comes from Google\'s privacy filtering, and the missing clicks still belong to pages you have.',
     );
   }
   if (args.dimensions.includes('page') && (args.aggregationType ?? 'auto') !== 'byProperty') {
