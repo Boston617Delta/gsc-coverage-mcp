@@ -8,7 +8,7 @@ The Search Analytics API returns 1,000 rows by default and at most 25,000 per re
 
 Even a full pull isn't every query. Google drops anonymized and rare queries, so query-level rows never add up to the property totals. On a small site it is normal for query rows to cover only half of all clicks.
 
-That's how an audit goes wrong while every number in it checks out: "dead" pages that actually have impressions, cannibalization that was missed, content gaps for pages you already have, and "lost rankings" that are just two pulls with different coverage. Daniel Foley Carter's LinkedIn piece, [Connecting Claude to Google Search Console for SEO Analysis? Be Aware of the Pitfalls](https://www.linkedin.com/pulse/connecting-claude-google-search-console-seo-analysis-aware-carter-wifve/), lays this out well.
+That's how an audit goes wrong while every number in it checks out: "dead" pages that actually have impressions, cannibalization that was missed, content gaps for pages you already have, and "lost rankings" that are just two pulls with different coverage. 
 
 This server fixes the two parts a connector can fix:
 
